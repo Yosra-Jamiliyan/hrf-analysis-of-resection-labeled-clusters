@@ -1,4 +1,4 @@
-% Script for type3 of the 2nd level delay and dispersion analysis with updated classification rule
+% Script for type3 of the 2nd level delay and dispersion analysis
 
 sub = '44';
 typ = '3';

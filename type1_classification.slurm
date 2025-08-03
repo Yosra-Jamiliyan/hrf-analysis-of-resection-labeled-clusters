@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=24:00:00
+#SBATCH --time=01:00:00
 #SBATCH --mem=10G
 #SBATCH --partition=cpu2019
 #SBATCH --cpus-per-task=1
@@ -10,18 +10,18 @@ export FSLDIR=~/fsl
 export PATH=$FSLDIR/bin:$PATH
 source $FSLDIR/etc/fslconf/fsl.sh
 
-sub=41
-typ=4
+sub=40
+typ=1
 
 cluster_mask="/home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_cope_Ftest_sub${sub}.gfeat/cope1.feat/cluster_mask_zfstat${typ}.nii.gz"
-zfstat="/home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_cope_Ftest_sub${sub}.gfeat/cope1.feat/stats/zfstat${typ}.nii.gz"
-pe10="/home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_cope_Ftest_sub${sub}.gfeat/cope1.feat/stats/cope10.nii.gz"
-pe11="/home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_cope_Ftest_sub${sub}.gfeat/cope1.feat/stats/cope11.nii.gz"
-pe12="/home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_cope_Ftest_sub${sub}.gfeat/cope1.feat/stats/cope12.nii.gz"
+zfstat="/home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_cope_Ftest_sub${sub}.gfeat/cope${typ}.feat/stats/zfstat${typ}.nii.gz"
+pe1="/home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_cope_Ftest_sub${sub}.gfeat/cope${typ}.feat/stats/pe1.nii.gz"
+pe2="/home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_cope_Ftest_sub${sub}.gfeat/cope${typ}.feat/stats/pe2.nii.gz"
+pe3="/home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_cope_Ftest_sub${sub}.gfeat/cope${typ}.feat/stats/pe3.nii.gz"
 resection_mask_orig="/home/yosra.jamiliyan1/new_data/ICE0${sub}/4_MRI/1_Anatomicals/PostOp/postop_mask_in_MNI.nii.gz"
 
 
-cd /home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_del_dis
+cd /home/yosra.jamiliyan1/new_data/ICE0${sub}/custom_basis_fun/2nd_del_dis/
 
 # Step 1 Resample resection mask to match zfstat.nii.gz file
 #resampled_mask="resection_mask_resampled.nii.gz"
@@ -65,8 +65,9 @@ for i in $(seq 1 $n_clusters); do
 
 
   # Mask the PE image by the current cluster
-  fslmaths "$pe10" -mas cluster_${i}.nii.gz pe10_cluster${i}.nii.gz
-  fslmaths "$pe11" -mas cluster_${i}.nii.gz pe11_cluster${i}.nii.gz
-  fslmaths "$pe12" -mas cluster_${i}.nii.gz pe12_cluster${i}.nii.gz
+  fslmaths "$pe1" -mas cluster_${i}.nii.gz pe1_cluster${i}.nii.gz
+  fslmaths "$pe2" -mas cluster_${i}.nii.gz pe2_cluster${i}.nii.gz
+  fslmaths "$pe3" -mas cluster_${i}.nii.gz pe3_cluster${i}.nii.gz
+
 
 done
