@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=24:00:00
+#SBATCH --time=01:00:00
 #SBATCH --mem=10G
 #SBATCH --partition=cpu2019
 #SBATCH --cpus-per-task=1
